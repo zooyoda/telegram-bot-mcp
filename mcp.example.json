@@ -1,0 +1,19 @@
+{
+    "mcpServers": {
+        "telegram-bot": {
+            "type": "stdio",
+            "command": "uv",
+            "args": [
+                "run",
+                "--directory",
+                "/Users/olegstefanov/Base/Prog/tasks-mcp",
+                "server"
+            ],
+            "name": "Telegram Bot API",
+            "description": "MCP для работы с Telegram Bot API. Отправка сообщений, медиа и работа с ботом.",
+            "config": {
+                "token": "YOUR_BOT_TOKEN_HERE"
+            }
+        }
+    }
+}

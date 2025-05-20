@@ -1,0 +1,64 @@
+# Переменные окружения
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Виртуальное окружение
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Кэш Python
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Файлы дистрибутива
+*.egg-info/
+
+# Файлы uv
+.uv/
+
+# Среды разработки
+.DS_Store
+
+# Логи
+*.log
+
+# Кэши mypy
+.mypy_cache/
+
+# Сгенерированные файлы документации
+docs/_build/
+site/
+
+# Временные файлы
+tmp/
+temp/
+.code-fucker/
+_pytest/

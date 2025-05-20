@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hello-world-mcp"
+version = "1.0.0"
+description = "Простой демонстрационный MCP сервер с базовой функциональностью"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "MCP Demo", email = "example@example.com"},
+]
+
+dependencies = [
+    "mcp>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "uvicorn>=0.32.1",
+]
+
+[project.scripts]
+server = "server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."] 

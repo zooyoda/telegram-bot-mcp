@@ -1,0 +1,5 @@
+mcp>=1.0.0
+python-telegram-bot>=13.7
+# Для разработки
+uvicorn>=0.15.0
+python-dotenv>=0.19.0 
