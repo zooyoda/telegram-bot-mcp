@@ -58,12 +58,12 @@ def run_async(coro):
 
 
 @mcp.tool("sendMessage")
-def sendMessage(chatId: Union[str, int], text: str) -> Dict[str, Any]:
+def sendMessage(chatId: str, text: str) -> Dict[str, Any]:
     """
     Отправляет текстовое сообщение в указанный чат.
     
     Параметры:
-    - chatId: ID чата, куда отправить сообщение (строка или число)
+    - chatId: ID чата, куда отправить сообщение (строка)
     - text: Текст сообщения для отправки
     
     Возвращает:
@@ -88,12 +88,12 @@ def sendMessage(chatId: Union[str, int], text: str) -> Dict[str, Any]:
 
 
 @mcp.tool("sendPhoto")
-def sendPhoto(chatId: Union[str, int], photoUrl: str, caption: Optional[str] = None) -> Dict[str, Any]:
+def sendPhoto(chatId: str, photoUrl: str, caption: Optional[str] = None) -> Dict[str, Any]:
     """
     Отправляет фото в указанный чат.
     
     Параметры:
-    - chatId: ID чата, куда отправить фото (строка или число)
+    - chatId: ID чата, куда отправить фото (строка)
     - photoUrl: URL фотографии или путь к локальному файлу
     - caption: Подпись к фотографии (опционально)
     
@@ -132,12 +132,12 @@ def sendPhoto(chatId: Union[str, int], photoUrl: str, caption: Optional[str] = N
 
 
 @mcp.tool("deleteMessage")
-def deleteMessage(chatId: Union[str, int], messageId: int) -> Dict[str, Any]:
+def deleteMessage(chatId: str, messageId: int) -> Dict[str, Any]:
     """
     Удаляет сообщение из чата.
     
     Параметры:
-    - chatId: ID чата, из которого нужно удалить сообщение (строка или число)
+    - chatId: ID чата, из которого нужно удалить сообщение (строка)
     - messageId: ID сообщения, которое нужно удалить (число)
     
     Возвращает:
