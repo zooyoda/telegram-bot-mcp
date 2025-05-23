@@ -83,6 +83,19 @@ for update in updates["updates"]:
     print(update)
 ```
 
+### Example Usage in Cursor
+
+Here's how to use the Telegram Bot MCP in Cursor:
+
+![Cursor Usage Example](https://raw.githubusercontent.com/coderroleggg/telegram-bot-mcp/assets/cursor-use-example.png)
+<!-- Images hosted in assets branch for reliable public access -->
+
+### Result Message
+
+Example of a message sent through the bot:
+
+![Result Message](https://raw.githubusercontent.com/coderroleggg/telegram-bot-mcp/assets/result-message.png)
+
 ## License
 
 MIT
@@ -190,6 +203,12 @@ To get a chat or user ID, there are several ways:
 2. Use a bot like @userinfobot: send it a message, and it will return your ID
 
 3. For group chats: add your bot to the group, send a message and use `getUpdates` to find the group ID
+
+4. **For channels**: 
+   - First, add your bot as an administrator to the channel with permission to send messages
+   - Forward any message from the channel to @userdatailsbot
+   - The bot will return the channel ID (it will be negative and start with -100)
+   - Use this ID as `chatId` when sending messages to the channel
 
 ## Limitations
 

@@ -62,3 +62,11 @@ tmp/
 temp/
 .code-fucker/
 _pytest/
+
+# Изображения для README (используйте внешний хостинг)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.webp
