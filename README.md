@@ -14,9 +14,11 @@ MCP (Multi-purpose Computing Platform) для работы с Telegram Bot API. 
 ## Установка
 
 ```bash
-git clone https://github.com/yourusername/telegram-bot-mcp.git
+git clone https://github.com/coderroleggg/telegram-bot-mcp
 cd telegram-bot-mcp
-pip install -r requirements.txt
+uv venv
+source .venv/bin/activate
+uv pip install -e .
 ```
 
 ## Настройка
@@ -31,10 +33,29 @@ pip install -r requirements.txt
    TELEGRAM_BOT_TOKEN=your_bot_token_here
    ```
 
-## Запуск
+## Подключение к Claude Desktop, Cursor
 
-```bash
-python server.py
+Добавьте блок telegram-bot к вашему mcp.json или claude_desktop_config.json или полностью замените содержимое файла на:
+```json
+{
+    "mcpServers": {
+        "telegram-bot": {
+            "type": "stdio",
+            "command": "uv",
+            "args": [
+                "run",
+                "--directory",
+                "/Users/yourusername/Downloads/telegram-bot-mcp", // путь к папке с кодом бота
+                "server"
+            ],
+            "name": "Telegram Bot API",
+            "description": "MCP для работы с Telegram Bot API. Отправка сообщений, медиа и работа с ботом.",
+            "config": {
+                "token": "YOUR_BOT_TOKEN_HERE"
+            }
+        }
+    }
+}
 ```
 
 ## Доступные функции
