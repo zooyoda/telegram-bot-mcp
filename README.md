@@ -21,18 +21,6 @@ source .venv/bin/activate
 uv pip install -e .
 ```
 
-## Configuration
-
-1. Create a bot through [@BotFather](https://t.me/BotFather) in Telegram and get the token
-2. Copy the `.env.example` file to `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-3. Open the `.env` file and add the obtained token:
-   ```
-   TELEGRAM_BOT_TOKEN=your_bot_token_here
-   ```
-
 ## Connecting to Claude Desktop, Cursor
 
 Add the telegram-bot block to your mcp.json or claude_desktop_config.json or completely replace the file content with:
