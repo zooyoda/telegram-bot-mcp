@@ -10,49 +10,49 @@ from telegram.ext import Updater
 from telegram.constants import ParseMode
 from dotenv import load_dotenv
 
-# Применяем патч для поддержки вложенных event loops
+# Apply patch for nested event loops support
 nest_asyncio.apply()
 
-# Загружаем переменные окружения
+# Load environment variables
 load_dotenv()
 
-# Настройка логирования
+# Logging configuration
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 logger = logging.getLogger(__name__)
 
-# Инициализация MCP
+# MCP initialization
 mcp = FastMCP(
     name="Telegram Bot API MCP",
-    description="MCP для работы с Telegram Bot API. Предоставляет функции для отправки и получения сообщений через Telegram бота.",
+    description="MCP for working with Telegram Bot API. Provides functions for sending and receiving messages through Telegram bot.",
     version="1.0.0",
     author="MCP Developer",
 )
 
-# Глобальные переменные
+# Global variables
 bot_instance = None
 
 
 def get_bot():
-    """Получает экземпляр бота, инициализируя его при необходимости."""
+    """Gets bot instance, initializing it if necessary."""
     global bot_instance
     
     if bot_instance is None:
         token = os.getenv("TELEGRAM_BOT_TOKEN")
         
         if not token:
-            raise ValueError("Токен бота не найден. Установите переменную окружения TELEGRAM_BOT_TOKEN в .env файле.")
+            raise ValueError("Bot token not found. Set the TELEGRAM_BOT_TOKEN environment variable in the .env file.")
         
-        # Создаем Bot напрямую вместо использования Updater
+        # Create Bot directly instead of using Updater
         bot_instance = Bot(token)
     
     return bot_instance
 
 
-# Вспомогательная функция для запуска асинхронных задач
+# Helper function for running async tasks
 def run_async(coro):
-    """Запускает асинхронную корутину в текущем event loop."""
+    """Runs an async coroutine in the current event loop."""
     loop = asyncio.get_event_loop()
     return loop.run_until_complete(coro)
 
@@ -60,18 +60,18 @@ def run_async(coro):
 @mcp.tool("sendMessage")
 def sendMessage(chatId: str, text: str) -> Dict[str, Any]:
     """
-    Отправляет текстовое сообщение в указанный чат.
+    Sends a text message to the specified chat.
     
-    Параметры:
-    - chatId: ID чата, куда отправить сообщение (строка)
-    - text: Текст сообщения для отправки
+    Parameters:
+    - chatId: Chat ID where to send the message (string)
+    - text: Message text to send
     
-    Возвращает:
-    - Информацию об отправленном сообщении
+    Returns:
+    - Information about the sent message
     """
     try:
         bot = get_bot()
-        # Запускаем асинхронный метод в текущем event loop
+        # Run async method in current event loop
         message = run_async(bot.send_message(chat_id=chatId, text=text))
         return {
             "success": True,
@@ -80,7 +80,7 @@ def sendMessage(chatId: str, text: str) -> Dict[str, Any]:
             "chat_id": message.chat_id
         }
     except Exception as e:
-        logger.error(f"Ошибка при отправке сообщения: {e}")
+        logger.error(f"Error sending message: {e}")
         return {
             "success": False,
             "error": str(e)
@@ -90,20 +90,20 @@ def sendMessage(chatId: str, text: str) -> Dict[str, Any]:
 @mcp.tool("sendPhoto")
 def sendPhoto(chatId: str, photoUrl: str, caption: Optional[str] = None) -> Dict[str, Any]:
     """
-    Отправляет фото в указанный чат.
+    Sends a photo to the specified chat.
     
-    Параметры:
-    - chatId: ID чата, куда отправить фото (строка)
-    - photoUrl: URL фотографии или путь к локальному файлу
-    - caption: Подпись к фотографии (опционально)
+    Parameters:
+    - chatId: Chat ID where to send the photo (string)
+    - photoUrl: Photo URL or path to local file
+    - caption: Photo caption (optional)
     
-    Возвращает:
-    - Информацию об отправленном фото
+    Returns:
+    - Information about the sent photo
     """
     try:
         bot = get_bot()
         
-        # Проверяем, это URL или локальный файл
+        # Check if it's a URL or local file
         if photoUrl.startswith(('http://', 'https://')):
             photo = photoUrl
         else:
@@ -112,10 +112,10 @@ def sendPhoto(chatId: str, photoUrl: str, caption: Optional[str] = None) -> Dict
             else:
                 return {
                     "success": False,
-                    "error": f"Файл не найден: {photoUrl}"
+                    "error": f"File not found: {photoUrl}"
                 }
         
-        # Запускаем асинхронный метод в текущем event loop
+        # Run async method in current event loop
         message = run_async(bot.send_photo(chat_id=chatId, photo=photo, caption=caption))
         return {
             "success": True,
@@ -124,7 +124,7 @@ def sendPhoto(chatId: str, photoUrl: str, caption: Optional[str] = None) -> Dict
             "chat_id": message.chat_id
         }
     except Exception as e:
-        logger.error(f"Ошибка при отправке фото: {e}")
+        logger.error(f"Error sending photo: {e}")
         return {
             "success": False,
             "error": str(e)
@@ -134,24 +134,24 @@ def sendPhoto(chatId: str, photoUrl: str, caption: Optional[str] = None) -> Dict
 @mcp.tool("deleteMessage")
 def deleteMessage(chatId: str, messageId: int) -> Dict[str, Any]:
     """
-    Удаляет сообщение из чата.
+    Deletes a message from the chat.
     
-    Параметры:
-    - chatId: ID чата, из которого нужно удалить сообщение (строка)
-    - messageId: ID сообщения, которое нужно удалить (число)
+    Parameters:
+    - chatId: Chat ID from which to delete the message (string)
+    - messageId: Message ID to delete (number)
     
-    Возвращает:
-    - Статус операции
+    Returns:
+    - Operation status
     """
     try:
         bot = get_bot()
-        # Запускаем асинхронный метод в текущем event loop
+        # Run async method in current event loop
         result = run_async(bot.delete_message(chat_id=chatId, message_id=messageId))
         return {
             "success": True if result else False
         }
     except Exception as e:
-        logger.error(f"Ошибка при удалении сообщения: {e}")
+        logger.error(f"Error deleting message: {e}")
         return {
             "success": False,
             "error": str(e)
@@ -161,14 +161,14 @@ def deleteMessage(chatId: str, messageId: int) -> Dict[str, Any]:
 @mcp.tool("getMe")
 def getMe() -> Dict[str, Any]:
     """
-    Получает информацию о боте.
+    Gets information about the bot.
     
-    Возвращает:
-    - Информацию о боте (ID, имя, username и т.д.)
+    Returns:
+    - Bot information (ID, name, username, etc.)
     """
     try:
         bot = get_bot()
-        # Запускаем асинхронный метод в текущем event loop
+        # Run async method in current event loop
         me = run_async(bot.get_me())
         return {
             "success": True,
@@ -181,7 +181,7 @@ def getMe() -> Dict[str, Any]:
             "supports_inline_queries": me.supports_inline_queries
         }
     except Exception as e:
-        logger.error(f"Ошибка при получении информации о боте: {e}")
+        logger.error(f"Error getting bot information: {e}")
         return {
             "success": False,
             "error": str(e)
@@ -191,26 +191,26 @@ def getMe() -> Dict[str, Any]:
 @mcp.tool("getUpdates")
 def getUpdates(offset: Optional[int] = None, limit: int = 100, timeout: int = 0) -> Dict[str, Any]:
     """
-    Получает обновления (сообщения, события) от Telegram Bot API.
+    Gets updates (messages, events) from Telegram Bot API.
     
-    Параметры:
-    - offset: ID первого обновления, которое нужно вернуть (опционально)
-    - limit: Максимальное количество обновлений для возврата (по умолчанию 100)
-    - timeout: Таймаут в секундах (по умолчанию 0)
+    Parameters:
+    - offset: ID of the first update to return (optional)
+    - limit: Maximum number of updates to return (default 100)
+    - timeout: Timeout in seconds (default 0)
     
-    Возвращает:
-    - Список обновлений
+    Returns:
+    - List of updates
     """
     try:
         bot = get_bot()
-        # Запускаем асинхронный метод в текущем event loop
+        # Run async method in current event loop
         updates = run_async(bot.get_updates(offset=offset, limit=limit, timeout=timeout))
         return {
             "success": True,
             "updates": [update.to_dict() for update in updates]
         }
     except Exception as e:
-        logger.error(f"Ошибка при получении обновлений: {e}")
+        logger.error(f"Error getting updates: {e}")
         return {
             "success": False,
             "error": str(e)
@@ -218,7 +218,7 @@ def getUpdates(offset: Optional[int] = None, limit: int = 100, timeout: int = 0)
 
 
 def main():
-    # Запускаем MCP сервер
+    # Run MCP server
     mcp.run()
 
 

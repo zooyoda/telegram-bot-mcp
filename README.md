@@ -1,17 +1,17 @@
 # Telegram Bot MCP
 
-MCP (Multi-purpose Computing Platform) для работы с Telegram Bot API. Предоставляет функции для отправки и получения сообщений через Telegram бота.
+MCP (Multi-purpose Computing Platform) for working with Telegram Bot API. Provides functions for sending and receiving messages through Telegram bot.
 
-## Возможности
+## Features
 
-- Отправка текстовых сообщений в чаты
-- Отправка медиа-контента (фото, документы, видео, аудио)
-- Создание и отправка опросов
-- Получение информации о боте
-- Получение обновлений (сообщений, событий) от пользователей
-- Удаление сообщений
+- Send text messages to chats
+- Send media content (photos, documents, videos, audio)
+- Create and send polls
+- Get bot information
+- Get updates (messages, events) from users
+- Delete messages
 
-## Установка
+## Installation
 
 ```bash
 git clone https://github.com/coderroleggg/telegram-bot-mcp
@@ -21,21 +21,21 @@ source .venv/bin/activate
 uv pip install -e .
 ```
 
-## Настройка
+## Configuration
 
-1. Создайте бота через [@BotFather](https://t.me/BotFather) в Telegram и получите токен
-2. Скопируйте файл `.env.example` в `.env`:
+1. Create a bot through [@BotFather](https://t.me/BotFather) in Telegram and get the token
+2. Copy the `.env.example` file to `.env`:
    ```bash
    cp .env.example .env
    ```
-3. Откройте файл `.env` и добавьте полученный токен:
+3. Open the `.env` file and add the obtained token:
    ```
    TELEGRAM_BOT_TOKEN=your_bot_token_here
    ```
 
-## Подключение к Claude Desktop, Cursor
+## Connecting to Claude Desktop, Cursor
 
-Добавьте блок telegram-bot к вашему mcp.json или claude_desktop_config.json или полностью замените содержимое файла на:
+Add the telegram-bot block to your mcp.json or claude_desktop_config.json or completely replace the file content with:
 ```json
 {
     "mcpServers": {
@@ -45,11 +45,11 @@ uv pip install -e .
             "args": [
                 "run",
                 "--directory",
-                "/Users/yourusername/Downloads/telegram-bot-mcp", // путь к папке с кодом бота
+                "/Users/yourusername/Downloads/telegram-bot-mcp", // path to the bot code folder
                 "server"
             ],
             "name": "Telegram Bot API",
-            "description": "MCP для работы с Telegram Bot API. Отправка сообщений, медиа и работа с ботом.",
+            "description": "MCP for working with Telegram Bot API. Send messages, media and work with bot.",
             "config": {
                 "token": "YOUR_BOT_TOKEN_HERE"
             }
@@ -58,24 +58,24 @@ uv pip install -e .
 }
 ```
 
-## Доступные функции
+## Available Functions
 
-- `sendMessage` - отправка текстового сообщения
-- `sendPhoto` - отправка фотографии
-- `deleteMessage` - удаление сообщения
-- `getMe` - получение информации о боте
-- `getUpdates` - получение новых сообщений и событий
+- `sendMessage` - send text message
+- `sendPhoto` - send photo
+- `deleteMessage` - delete message
+- `getMe` - get bot information
+- `getUpdates` - get new messages and events
 
-## Примеры использования
+## Usage Examples
 
-### Отправка сообщения
+### Sending a Message
 
 ```python
-response = mcp.call("sendMessage", {"chatId": "12345678", "text": "Привет, мир!"})
+response = mcp.call("sendMessage", {"chatId": "12345678", "text": "Hello, world!"})
 print(response)
 ```
 
-### Получение обновлений
+### Getting Updates
 
 ```python
 updates = mcp.call("getUpdates", {})
@@ -83,123 +83,123 @@ for update in updates["updates"]:
     print(update)
 ```
 
-## Лицензия
+## License
 
 MIT
 
-## API-инструменты
+## API Tools
 
 ### initialize
 
-Инициализирует конфигурацию для Telegram Bot MCP.
+Initializes configuration for Telegram Bot MCP.
 
-**Параметры:**
-- `token`: Токен вашего Telegram бота, полученный от @BotFather
+**Parameters:**
+- `token`: Your Telegram bot token obtained from @BotFather
 
 ### sendMessage
 
-Отправляет текстовое сообщение в указанный чат.
+Sends a text message to the specified chat.
 
-**Параметры:**
-- `chatId`: ID чата, куда отправить сообщение (строка или число)
-- `text`: Текст сообщения для отправки
+**Parameters:**
+- `chatId`: Chat ID where to send the message (string or number)
+- `text`: Message text to send
 
 ### sendPhoto
 
-Отправляет фото в указанный чат.
+Sends a photo to the specified chat.
 
-**Параметры:**
-- `chatId`: ID чата, куда отправить фото (строка или число)
-- `photoUrl`: URL фотографии или путь к локальному файлу
-- `caption`: Подпись к фотографии (опционально)
+**Parameters:**
+- `chatId`: Chat ID where to send the photo (string or number)
+- `photoUrl`: Photo URL or path to local file
+- `caption`: Photo caption (optional)
 
 ### sendDocument
 
-Отправляет документ в указанный чат.
+Sends a document to the specified chat.
 
-**Параметры:**
-- `chatId`: ID чата, куда отправить документ (строка или число)
-- `documentUrl`: URL документа или путь к локальному файлу
-- `caption`: Подпись к документу (опционально)
-- `filename`: Имя файла (опционально)
+**Parameters:**
+- `chatId`: Chat ID where to send the document (string or number)
+- `documentUrl`: Document URL or path to local file
+- `caption`: Document caption (optional)
+- `filename`: File name (optional)
 
 ### sendVideo
 
-Отправляет видео в указанный чат.
+Sends a video to the specified chat.
 
-**Параметры:**
-- `chatId`: ID чата, куда отправить видео (строка или число)
-- `videoUrl`: URL видео или путь к локальному файлу
-- `caption`: Подпись к видео (опционально)
-- `duration`: Длительность видео в секундах (опционально)
-- `width`: Ширина видео (опционально)
-- `height`: Высота видео (опционально)
+**Parameters:**
+- `chatId`: Chat ID where to send the video (string or number)
+- `videoUrl`: Video URL or path to local file
+- `caption`: Video caption (optional)
+- `duration`: Video duration in seconds (optional)
+- `width`: Video width (optional)
+- `height`: Video height (optional)
 
 ### sendAudio
 
-Отправляет аудио в указанный чат.
+Sends audio to the specified chat.
 
-**Параметры:**
-- `chatId`: ID чата, куда отправить аудио (строка или число)
-- `audioUrl`: URL аудио или путь к локальному файлу
-- `caption`: Подпись к аудио (опционально)
-- `duration`: Длительность аудио в секундах (опционально)
-- `performer`: Исполнитель (опционально)
-- `title`: Название трека (опционально)
+**Parameters:**
+- `chatId`: Chat ID where to send the audio (string or number)
+- `audioUrl`: Audio URL or path to local file
+- `caption`: Audio caption (optional)
+- `duration`: Audio duration in seconds (optional)
+- `performer`: Performer (optional)
+- `title`: Track title (optional)
 
 ### sendPoll
 
-Отправляет сообщение с опросом в указанный чат.
+Sends a poll message to the specified chat.
 
-**Параметры:**
-- `chatId`: ID чата, куда отправить опрос (строка или число)
-- `question`: Вопрос опроса
-- `options`: Список вариантов ответа (строки)
-- `isAnonymous`: Анонимный ли опрос (опционально, по умолчанию True)
-- `allowsMultipleAnswers`: Разрешены ли множественные ответы (опционально, по умолчанию False)
+**Parameters:**
+- `chatId`: Chat ID where to send the poll (string or number)
+- `question`: Poll question
+- `options`: List of answer options (strings)
+- `isAnonymous`: Whether the poll is anonymous (optional, default True)
+- `allowsMultipleAnswers`: Whether multiple answers are allowed (optional, default False)
 
 ### getMe
 
-Получает информацию о боте.
+Gets information about the bot.
 
-**Параметры:** нет
+**Parameters:** none
 
 ### getUpdates
 
-Получает обновления (сообщения, события) от Telegram Bot API.
+Gets updates (messages, events) from Telegram Bot API.
 
-**Параметры:**
-- `offset`: ID первого обновления, которое нужно вернуть (опционально)
-- `limit`: Максимальное количество обновлений для возврата (опционально, по умолчанию 100)
-- `timeout`: Таймаут в секундах (опционально, по умолчанию 0)
+**Parameters:**
+- `offset`: ID of the first update to return (optional)
+- `limit`: Maximum number of updates to return (optional, default 100)
+- `timeout`: Timeout in seconds (optional, default 0)
 
 ### deleteMessage
 
-Удаляет сообщение из чата.
+Deletes a message from the chat.
 
-**Параметры:**
-- `chatId`: ID чата, из которого нужно удалить сообщение (строка или число)
-- `messageId`: ID сообщения, которое нужно удалить (число)
+**Parameters:**
+- `chatId`: Chat ID from which to delete the message (string or number)
+- `messageId`: Message ID to delete (number)
 
-## Как получить chatId?
+## How to Get chatId?
 
-Чтобы получить ID чата или пользователя, существует несколько способов:
+To get a chat or user ID, there are several ways:
 
-1. Использовать инструмент `getUpdates` и найти нужный ID после отправки сообщения вашему боту
+1. Use the `getUpdates` tool and find the needed ID after sending a message to your bot
 
-2. Использовать бота вроде @userinfobot: отправьте ему сообщение, и он вернет ваш ID
+2. Use a bot like @userinfobot: send it a message, and it will return your ID
 
-3. Для групповых чатов: добавьте вашего бота в группу, отправьте сообщение и используйте `getUpdates`, чтобы найти ID группы
+3. For group chats: add your bot to the group, send a message and use `getUpdates` to find the group ID
 
-## Ограничения
+## Limitations
 
-- Бот не может начать общение с пользователем первым, пользователь должен сначала отправить сообщение боту
-- Бот может отправлять сообщения только в чаты, где он находится
-- Некоторые форматы файлов могут быть ограничены Telegram
-- При отправке локальных файлов, они должны быть доступны процессу, в котором работает MCP
+- Bot cannot start a conversation with a user first, the user must send a message to the bot first
+- Bot can only send messages to chats where it is present
+- Some file formats may be restricted by Telegram
+- When sending local files, they must be accessible to the process in which MCP is running
 
-## Дополнительная информация
+## Additional Information
 
-Для получения дополнительной информации о Telegram Bot API:
-- [Официальная документация Telegram Bot API](https://core.telegram.org/bots/api)
-- [Документация python-telegram-bot](https://python-telegram-bot.readthedocs.io/) 
+For more information about Telegram Bot API:
+- [Official Telegram Bot API Documentation](https://core.telegram.org/bots/api)
+- [python-telegram-bot Documentation](https://python-telegram-bot.readthedocs.io/) 
