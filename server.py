@@ -16,6 +16,8 @@ nest_asyncio.apply()
 # Load environment variables
 load_dotenv()
 
+logger.info("TOKEN_PRESENT:", os.getenv("TELEGRAM_BOT_TOKEN") is not None)
+
 # Logging configuration
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
