@@ -1,0 +1,6 @@
+meta:
+  environment: docker
+
+run:
+  containerPort: 8004
+  servicePort: 8004
