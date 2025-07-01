@@ -1,23 +1,24 @@
-# syntax=docker/dockerfile:1
+# Используем минимальный Python образ
+FROM python:3.11-slim
 
-# Базовый образ
-FROM python:3.10-slim
-
-# Установим рабочую директорию
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Скопируем файлы проекта
-COPY . .
+# Копируем зависимости
+COPY pyproject.toml requirements.txt uv.lock ./
 
-# Установим зависимости
+# Обновляем pip + poetry (если poetry используется)
 RUN pip install --upgrade pip \
     && pip install -r requirements.txt
 
-# Укажем переменные окружения (например, токен бота)
-# ENV TELEGRAM_BOT_TOKEN=your_token_here
+# Копируем всё остальное
+COPY . .
 
-# Откроем порт (если нужно, например 8080)
-EXPOSE 8080
+# Открываем порт (если у FastMCP 8000)
+EXPOSE 8000
 
-# Запустим сервер
-CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8080"]
+# Указываем переменные окружения для Python
+ENV PYTHONUNBUFFERED=1
+
+# Запускаем сервер
+CMD ["uvicorn", "server:main", "--host", "0.0.0.0", "--port", "8000"]
