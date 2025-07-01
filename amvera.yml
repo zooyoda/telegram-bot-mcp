@@ -4,3 +4,5 @@ meta:
 run:
   containerPort: 8004
   servicePort: 8004
+  environment:
+    TELEGRAM_BOT_TOKEN: "${TELEGRAM_BOT_TOKEN}"
